@@ -74,13 +74,15 @@ public class principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cmdcalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdcalcularActionPerformed
-        double valor1,op;
+        double valor1,op, op2;
         
         valor1 = Double.parseDouble(txtvalor1.getText());
         
-        op = (valor1 * 1500) * 1.16;
+        op = (valor1 * 1500);
         
-        txtresultado.setText(String.valueOf(op));
+        op2 = (op * 0.16) + op;
+        
+        txtresultado.setText(String.valueOf(op2));
         
     }//GEN-LAST:event_cmdcalcularActionPerformed
 
