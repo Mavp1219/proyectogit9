@@ -5,6 +5,9 @@
  */
 package repositorio10;
 
+import javax.swing.JOptionPane;
+import jdk.nashorn.internal.scripts.JO;
+
 /**
  *
  * @author user
@@ -51,14 +54,25 @@ public class principal extends javax.swing.JFrame {
                 cmdcalcularActionPerformed(evt);
             }
         });
-        jPanel1.add(cmdcalcular, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 263, 90, 30));
+        jPanel1.add(cmdcalcular, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 253, 100, 40));
 
         cmdborrar.setText("BORRAR");
-        jPanel1.add(cmdborrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(325, 263, 80, 30));
+        cmdborrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdborrarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(cmdborrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 250, 90, 40));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setText("INGRESE NUMERO DE FOTOS: ");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 54, 170, 30));
+
+        txtvalor1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtvalor1KeyTyped(evt);
+            }
+        });
         jPanel1.add(txtvalor1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 50, 170, 30));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -74,17 +88,46 @@ public class principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cmdcalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdcalcularActionPerformed
-        double valor1,op, op2;
-        
-        valor1 = Double.parseDouble(txtvalor1.getText());
-        
-        op = (valor1 * 1500);
-        
-        op2 = (op * 0.16) + op;
-        
-        txtresultado.setText(String.valueOf(op2));
-        
+        double valor1, op, op2;
+
+        if (txtvalor1.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor ingrese el numero de fotos a revelar", "Error", JOptionPane.ERROR_MESSAGE);
+            txtvalor1.requestFocusInWindow();
+            txtvalor1.selectAll();
+        } else {
+
+            valor1 = Double.parseDouble(txtvalor1.getText());
+
+            if (valor1 == 0) {
+                JOptionPane.showMessageDialog(this, "Por favor ingrese un numero diferente de 0", "Error", JOptionPane.ERROR_MESSAGE);
+                txtvalor1.requestFocusInWindow();
+                txtvalor1.selectAll();
+            } else {
+
+                op = (valor1 * 1500);
+
+                op2 = (op * 0.16) + op;
+
+                txtresultado.setText(String.valueOf(op2));
+
+            }
+        }
     }//GEN-LAST:event_cmdcalcularActionPerformed
+
+    private void txtvalor1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtvalor1KeyTyped
+        char c = evt.getKeyChar();
+        if(!Character.isDigit(c)){
+            getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtvalor1KeyTyped
+
+    private void cmdborrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdborrarActionPerformed
+        txtvalor1.setText("");
+        txtresultado.setText("");
+        
+        txtvalor1.requestFocusInWindow();
+    }//GEN-LAST:event_cmdborrarActionPerformed
 
     /**
      * @param args the command line arguments
